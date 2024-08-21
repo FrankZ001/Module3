@@ -1,0 +1,41 @@
+---
+title: "Steak Preferences in the United States"
+subtitle: "Summary Report For the _**Mountain**_ Region"
+author: "Author: Frank Ziegengeist"
+date: "`r format(Sys.Date(), '%A, %B %d, %Y')`"
+output: html_document
+---
+
+
+
+
+```{r setup, include=FALSE}
+# define knitr options
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(warning = TRUE)
+knitr::opts_chunk$set(message = TRUE)
+
+# set any missing NAs in table to blank
+options(knitr.kable.NA='')
+
+# load R packages
+library(fivethirtyeight)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(ggthemes)
+
+#load steal_survey dataset
+data("steak_survey", package="fivethirtyeight")
+
+#create subset ....
+sdat <- na.omit(steak_survey) %>%
+  filter(region=="Mountain")
+
+ggplot(sdat, 
+       aes(x = steak_prep, fill = female)) + 
+  geom_bar(position="dodge") +
+  ggtitle(paste0("Steak Preparation Preference by Gender for ","Mountain"," Region"))
+
+
+``` 
